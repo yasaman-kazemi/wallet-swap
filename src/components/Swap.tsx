@@ -4,6 +4,7 @@ import SwapButton from "./swapButton/SwapButton";
 import TokenList from "./tokenList/TokenList";
 import { formatWithCommas, Token, WalletData } from "../types/wallet";
 import { useSwap } from "../context/SwapContext";
+import { TEXTS } from "../constants/staticText";
 
 function Swap() {
   const [openTokenList, setOpenTokenList] = useState<boolean>(false);
@@ -20,7 +21,7 @@ function Swap() {
 
       const numericAmount = parseFloat(amount.replace(/,/g, ""));
       if (!isNaN(numericAmount)) {
-        const result = numericAmount * randomRate;
+        const result = +(numericAmount * randomRate).toFixed(2);
         setSwapPrice(result);
         setLoading(false);
       } else {
@@ -69,7 +70,7 @@ function Swap() {
 
   return (
     <div className="flex justify-start items-content flex-col gap-4">
-      <div style={{ fontSize: "30px" }}>Swap</div>
+      <div style={{ fontSize: "30px" }}>{TEXTS.SWAP}</div>
       <SwapBox
         handleTokenListOpen={handleOpenTokenList}
         balance={balance}

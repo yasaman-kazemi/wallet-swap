@@ -4,6 +4,7 @@ import "./TokenList.css";
 import { formatWithCommas, Token } from "../../types/wallet";
 import TokenIcon from "../tokenIcon/TokenIcon";
 import { useSwap } from "../../context/SwapContext";
+import { TEXTS } from "../../constants/staticText";
 
 type Props = {
   openTokenList: boolean;
@@ -50,13 +51,13 @@ function TokenList({ openTokenList, handleClose, tokens, side }: Props) {
         style={{ overflow: "scroll" }}
       >
         <div className="flex justify-center content-center token-list-title">
-          Tokens
+          {TEXTS.TOKEN_LIST_TITLE}
         </div>
         <div className="search-wrapper">
           <input
             className="search-input"
             type="text"
-            placeholder="Search"
+            placeholder={TEXTS.SEARCH_PLACEHOLDER}
             value={value}
             onChange={handleChange}
           />
@@ -66,7 +67,7 @@ function TokenList({ openTokenList, handleClose, tokens, side }: Props) {
               aria-label="Clear search"
               onClick={() => setValue("")}
             >
-              ✕
+              {TEXTS.CLOSE_SIGN}
             </button>
           )}
         </div>
@@ -105,11 +106,10 @@ function TokenList({ openTokenList, handleClose, tokens, side }: Props) {
                       <div className="token-amount">
                         {formatWithCommas(token.available.amount.number)}
                       </div>
-                      {/* {token.available.amount.number !== "0" && ( */}
                       <div className=" token-equivalent ">
-                        ≈ {getTokenUSDTValue(token)}
+                        {TEXTS.APPROXIMATELY_EQUAL_SIGN}{" "}
+                        {getTokenUSDTValue(token)}
                       </div>
-                      {/* )} */}
                     </div>
                   </button>
                 </li>

@@ -4,6 +4,7 @@ import { ChangeEvent, useState } from "react";
 import TokenIcon from "../tokenIcon/TokenIcon";
 import { useSwap } from "../../context/SwapContext";
 import { formatWithCommas } from "../../types/wallet";
+import { TEXTS } from "../../constants/staticText";
 
 type Props = {
   balance?: string;
@@ -66,11 +67,12 @@ function Currency({
             <input
               type="text"
               inputMode="decimal"
-              placeholder="0.00"
+              placeholder={TEXTS.BALANCE_PLACEHOLDER}
               className={`input ${
-                balance &&
-                parseFloat(amount.replace(/,/g, "")) >
-                  parseFloat(balance.replace(/,/g, ""))
+                (balance &&
+                  parseFloat(amount.replace(/,/g, "")) >
+                    parseFloat(balance.replace(/,/g, ""))) ||
+                hasError
                   ? "input-error"
                   : ""
               }`}
@@ -81,7 +83,7 @@ function Currency({
             <div className="loading-wave" />
           ) : (
             <div style={{ fontSize: "25px", textAlign: "left", width: "100%" }}>
-              {swapPrice && formatWithCommas(swapPrice.toString())}
+              {swapPrice && formatWithCommas(swapPrice.toFixed(2))}
             </div>
           )}
         </div>
@@ -116,9 +118,11 @@ function Currency({
             onClick={setValueToMax}
             disabled={parseFloat(amount) > parseFloat(balance)}
           >
-            MAX
+            {TEXTS.MAX}
           </button>
-          <div>Balance: {formatWithCommas(balance)}</div>
+          <div>
+            {TEXTS.BALANCE} {formatWithCommas(balance)}
+          </div>
         </div>
       )}
     </div>
