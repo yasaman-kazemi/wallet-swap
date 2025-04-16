@@ -1,7 +1,7 @@
 import { ChangeEvent, useState } from "react";
 import BottomSheet from "../bottomSheet/BottomSheet";
 import "./TokenList.css";
-import { Token } from "../../types/wallet";
+import { formatWithCommas, Token } from "../../types/wallet";
 import TokenIcon from "../tokenIcon/TokenIcon";
 import { useSwap } from "../../context/SwapContext";
 
@@ -20,18 +20,6 @@ function TokenList({ openTokenList, handleClose, tokens, side }: Props) {
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const token = e.target.value;
     setValue(token);
-  };
-
-  const formatWithCommas = (input: string): string => {
-    const sanitized = input.replace(/[^\d.]/g, "");
-
-    const [integerPart, decimalPart] = sanitized.split(".");
-
-    const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-    return decimalPart !== undefined
-      ? `${formattedInteger}.${decimalPart}`
-      : formattedInteger;
   };
 
   function getTokenUSDTValue(token: Token): string {
