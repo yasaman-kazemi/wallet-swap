@@ -47,7 +47,8 @@ function Currency({
 
   const setValueToMax = () => {
     setHasError(false);
-    if (balance) setAmount(formatWithCommas(balance === "0" ? "1" : balance));
+    if (balance)
+      setAmount(formatWithCommas(balance === "0" ? "0.00" : balance));
   };
 
   return (
@@ -104,7 +105,14 @@ function Currency({
       </div>
       {balance && (
         <div className="flex justify-between content-center">
-          <button className="button" onClick={setValueToMax}>
+          <button
+            className="button"
+            onClick={setValueToMax}
+            disabled={
+              parseFloat(amount) > parseFloat(balance) &&
+              parseFloat(balance) === 0.0
+            }
+          >
             {TEXTS.MAX}
           </button>
           <div>
