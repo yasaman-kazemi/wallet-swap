@@ -70,7 +70,7 @@ function Swap() {
 
   return (
     <div className="flex justify-start items-content flex-col gap-4">
-      <div style={{ fontSize: "30px" }}>{TEXTS.SWAP}</div>
+      <div className="font-md">{TEXTS.SWAP}</div>
       <SwapBox
         handleTokenListOpen={handleOpenTokenList}
         balance={balance}

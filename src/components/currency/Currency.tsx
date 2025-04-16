@@ -55,10 +55,7 @@ function Currency({
       className="flex flex-col justify-center content-center gap-2"
       id={title}
     >
-      <div
-        className="flex justify-start content-center"
-        style={{ fontSize: "20px" }}
-      >
+      <div className="flex justify-start content-center currency-title-font-size">
         {title}
       </div>
       <div className="flex justify-between content-center">
@@ -82,34 +79,28 @@ function Currency({
           ) : loading ? (
             <div className="loading-wave" />
           ) : (
-            <div style={{ fontSize: "25px", textAlign: "left", width: "100%" }}>
+            <div className="swap-price">
               {swapPrice && formatWithCommas(swapPrice.toFixed(2))}
             </div>
           )}
         </div>
-        <div className="flex justify-end items-center gap-2">
+        <button
+          className="flex justify-end items-center gap-2"
+          onClick={() => openTokenList(title.toLowerCase() as "from" | "to")}
+        >
           <TokenIcon name={unit} />
           <div className="flex justify-center items-center gap-1">
-            <div
-              className="flex justify-center items-center"
-              style={{ fontSize: "20px" }}
-            >
+            <div className="flex justify-center items-center font-base">
               {unit}
             </div>
-            <button
-              className="flex justify-center items-center arrow-button"
-              onClick={() =>
-                openTokenList(title.toLowerCase() as "from" | "to")
-              }
-            >
+            <div className="flex justify-center items-center arrow-button">
               <AiOutlineCaretRight
                 size={16}
-                className="flex justify-center content-center"
-                style={{ marginTop: "3px" }}
+                className="flex justify-center content-center mt-3"
               />
-            </button>
+            </div>
           </div>
-        </div>
+        </button>
       </div>
       {balance && (
         <div className="flex justify-between content-center">

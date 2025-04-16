@@ -24,6 +24,10 @@ button {
   cursor: pointer;
 }
 
+.overflow-scroll {
+  overflow: scroll;
+}
+
 .search-input:focus {
   border: 1px solid #0067ff;
   background-color: #2a2a2a;

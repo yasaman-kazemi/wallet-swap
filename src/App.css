@@ -69,6 +69,10 @@ body {
   gap: var(--space-4);
 }
 
+.mt-3 {
+  margin-top: 3px;
+}
+
 .mx-2 {
   margin-left: var(--space-2);
   margin-right: var(--space-2);
@@ -118,6 +122,14 @@ body {
   background: linear-gradient(270deg, #3f3f3f, #717171, #9b9b9b);
   background-size: 600% 600%;
   animation: wave 2s ease infinite;
+}
+
+.font-md {
+  font-size: 30px;
+}
+
+.font-base {
+  font-size: 20px;
 }
 
 @keyframes wave {
