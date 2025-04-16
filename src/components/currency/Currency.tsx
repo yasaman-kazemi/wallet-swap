@@ -104,11 +104,7 @@ function Currency({
       </div>
       {balance && (
         <div className="flex justify-between content-center">
-          <button
-            className="button"
-            onClick={setValueToMax}
-            disabled={parseFloat(amount) > parseFloat(balance)}
-          >
+          <button className="button" onClick={setValueToMax}>
             {TEXTS.MAX}
           </button>
           <div>
