@@ -7,6 +7,7 @@ type Props = {
   balance: string;
   swapPrice: number;
   handleSwap: () => void;
+  loading: boolean;
 };
 
 function SwapBox({
@@ -14,6 +15,7 @@ function SwapBox({
   balance,
   swapPrice,
   handleSwap,
+  loading,
 }: Props) {
   return (
     <div className="flex justify-center content-center flex-col p-4 mx-4 swap-box gap-2">
@@ -21,6 +23,7 @@ function SwapBox({
         title="From"
         balance={balance}
         openTokenList={handleTokenListOpen}
+        loading={loading}
       />
       <div className="separator">
         <div className="line" />
@@ -33,6 +36,7 @@ function SwapBox({
         title="To"
         openTokenList={handleTokenListOpen}
         swapPrice={swapPrice}
+        loading={loading}
       />
     </div>
   );

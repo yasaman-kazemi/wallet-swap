@@ -109,3 +109,25 @@ body {
 .items-center {
   align-items: center;
 }
+
+.loading-wave {
+  display: flex;
+  width: 200px;
+  height: 30px;
+  border-radius: 8px;
+  background: linear-gradient(270deg, #3f3f3f, #717171, #9b9b9b);
+  background-size: 600% 600%;
+  animation: wave 2s ease infinite;
+}
+
+@keyframes wave {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import SwapBox from "./swapBox/SwapBox";
 import SwapButton from "./swapButton/SwapButton";
 import TokenList from "./tokenList/TokenList";
-import { Token, WalletData } from "../types/wallet";
+import { formatWithCommas, Token, WalletData } from "../types/wallet";
 import { useSwap } from "../context/SwapContext";
 
 function Swap() {
@@ -11,22 +11,26 @@ function Swap() {
   const [tokens, setTokens] = useState<Token[]>([]);
   const { balance, setBalance, unit, amount } = useSwap();
   const [swapPrice, setSwapPrice] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    setLoading(true);
     const interval = setInterval(() => {
-      const randomRate = +(Math.random() * 1000 + 1000).toFixed(2);
+      const randomRate = +(Math.random() * 10 + 10).toFixed(2);
 
       const numericAmount = parseFloat(amount.replace(/,/g, ""));
       if (!isNaN(numericAmount)) {
         const result = numericAmount * randomRate;
         setSwapPrice(result);
+        setLoading(false);
       } else {
         setSwapPrice(0.0);
+        setLoading(false);
       }
     }, 3000);
 
     return () => clearInterval(interval);
-  }, [amount, unit]);
+  }, [amount, unit, balance]);
 
   useEffect(() => {
     fetch("/data.json")
@@ -53,17 +57,14 @@ function Swap() {
   const to = useSwap("to");
 
   const handleSwap = () => {
-    const tempUnit = from.unit;
-    const tempBalance = from.balance;
-    const tempAmount = from.amount;
-
     from.setUnit(to.unit);
-    from.setBalance(to.balance);
-    from.setAmount(to.amount);
+    to.setUnit(from.unit);
 
-    to.setUnit(tempUnit);
-    to.setBalance(tempBalance);
-    to.setAmount(tempAmount);
+    from.setBalance(to.balance);
+    to.setBalance(from.balance);
+
+    from.setAmount(formatWithCommas(swapPrice.toString()));
+    to.setAmount(from.amount);
   };
 
   return (
@@ -74,6 +75,7 @@ function Swap() {
         balance={balance}
         swapPrice={swapPrice}
         handleSwap={handleSwap}
+        loading={loading}
       />
       <SwapButton />
       <TokenList

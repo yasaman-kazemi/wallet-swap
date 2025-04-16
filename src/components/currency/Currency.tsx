@@ -3,32 +3,28 @@ import "./Currency.css";
 import { ChangeEvent, useState } from "react";
 import TokenIcon from "../tokenIcon/TokenIcon";
 import { useSwap } from "../../context/SwapContext";
+import { formatWithCommas } from "../../types/wallet";
 
 type Props = {
   balance?: string;
   title: string;
   openTokenList: (side: "from" | "to") => void;
   swapPrice?: number;
+  loading: boolean;
 };
 
-function Currency({ title, balance, openTokenList, swapPrice }: Props) {
+function Currency({
+  title,
+  balance,
+  openTokenList,
+  swapPrice,
+  loading,
+}: Props) {
   const [hasError, setHasError] = useState<boolean>(false);
 
   const { unit, amount, setAmount } = useSwap(
     title.toLowerCase() as "from" | "to"
   );
-
-  const formatWithCommas = (input: string): string => {
-    const sanitized = input.replace(/[^\d.]/g, "");
-
-    const [integerPart, decimalPart] = sanitized.split(".");
-
-    const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-
-    return decimalPart !== undefined
-      ? `${formattedInteger}.${decimalPart}`
-      : formattedInteger;
-  };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const formatted = formatWithCommas(e.target.value);
@@ -38,7 +34,7 @@ function Currency({ title, balance, openTokenList, swapPrice }: Props) {
     else {
       if (
         balance &&
-        parseFloat(formatted.replace(/,/g, "")) >
+        parseFloat(amount.replace(/,/g, "")) >
           parseFloat(balance.replace(/,/g, ""))
       ) {
         setHasError(true);
@@ -54,7 +50,10 @@ function Currency({ title, balance, openTokenList, swapPrice }: Props) {
   };
 
   return (
-    <div className="flex flex-col justify-center content-center gap-2">
+    <div
+      className="flex flex-col justify-center content-center gap-2"
+      id={title}
+    >
       <div
         className="flex justify-start content-center"
         style={{ fontSize: "20px" }}
@@ -68,10 +67,18 @@ function Currency({ title, balance, openTokenList, swapPrice }: Props) {
               type="text"
               inputMode="decimal"
               placeholder="0.00"
-              className={`input ${hasError ? "input-error" : ""}`}
+              className={`input ${
+                balance &&
+                parseFloat(amount.replace(/,/g, "")) >
+                  parseFloat(balance.replace(/,/g, ""))
+                  ? "input-error"
+                  : ""
+              }`}
               value={amount}
               onChange={handleChange}
             />
+          ) : loading ? (
+            <div className="loading-wave" />
           ) : (
             <div style={{ fontSize: "25px", textAlign: "left", width: "100%" }}>
               {swapPrice && formatWithCommas(swapPrice.toString())}
