@@ -1,0 +1,15 @@
+.swap-button {
+  all: unset;
+  font: inherit;
+  cursor: pointer;
+  color: #232323;
+  display: flex;
+  padding: 10px;
+  border-radius: 20px;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+  font-size: 27px;
+  font-weight: 700;
+  background-color: #e7e5e5;
+}

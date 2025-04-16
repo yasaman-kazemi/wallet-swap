@@ -1,0 +1,31 @@
+.swap-box {
+  background-color: #232323;
+  border-radius: 20px;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin: 1px 0;
+}
+
+.line {
+  flex: 1;
+  height: 1px;
+  background-color: #444;
+}
+
+.swap-icon-button {
+  all: unset;
+  font: inherit;
+  cursor: pointer;
+}
+
+.swap-icon {
+  width: 24px;
+  height: 24px;
+  rotate: 90deg;
+  color: white !important;
+}

@@ -1,0 +1,28 @@
+.input {
+  all: unset;
+  font: inherit;
+  cursor: pointer;
+  color: white;
+  font-size: 25px;
+  text-align: left;
+  width: 100%;
+}
+
+.input-error {
+  color: #ba3436;
+  border-color: #ba3436;
+}
+
+.button {
+  all: unset;
+  font: inherit;
+  cursor: pointer;
+  color: #0067ff;
+  padding: 0;
+}
+
+.arrow-button {
+  all: unset;
+  font: inherit;
+  cursor: pointer;
+}
